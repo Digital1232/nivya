@@ -13846,6 +13846,229 @@ select:focus {
   margin-right: 8px;
 }
 
+.wcu-infographic-section {
+  padding: 80px 0;
+  background: var(--primary-100);
+  position: relative;
+  overflow: hidden;
+}
+
+.wcu-bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px dashed var(--primary-200);
+  pointer-events: none;
+}
+
+.wcu-bg-circle--top {
+  top: -100px;
+  right: -100px;
+  width: 350px;
+  height: 350px;
+  opacity: 0.5;
+}
+
+.wcu-bg-circle--bottom {
+  bottom: -80px;
+  left: -80px;
+  width: 280px;
+  height: 280px;
+  opacity: 0.4;
+}
+
+.wcu-circle-item {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.wcu-circle-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--primary-200);
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 6px 24px rgba(11, 86, 160, 0.1);
+  transition: all 0.3s ease;
+}
+
+.wcu-outer-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px dashed var(--primary-300);
+  opacity: 0.5;
+}
+
+.wcu-number-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(11, 86, 160, 0.3);
+}
+
+.wcu-number {
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.wcu-icon {
+  font-size: 2.2rem;
+  color: var(--primary);
+}
+
+.wcu-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 8px;
+}
+
+.wcu-desc {
+  color: var(--gray-500);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.wcu-circle-item:hover .wcu-circle-icon {
+  border-color: var(--primary) !important;
+  transform: scale(1.08);
+  box-shadow: 0 8px 32px rgba(11, 86, 160, 0.18) !important;
+}
+
+.wcu-circle-item:hover .wcu-outer-ring {
+  opacity: 1 !important;
+  border-color: var(--primary) !important;
+}
+
+.wcu-infographic-section {
+  padding: 80px 0;
+  background: var(--primary-100);
+  position: relative;
+  overflow: hidden;
+}
+
+.wcu-bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px dashed var(--primary-200);
+  pointer-events: none;
+}
+
+.wcu-bg-circle--top {
+  top: -100px;
+  right: -100px;
+  width: 350px;
+  height: 350px;
+  opacity: 0.5;
+}
+
+.wcu-bg-circle--bottom {
+  bottom: -80px;
+  left: -80px;
+  width: 280px;
+  height: 280px;
+  opacity: 0.4;
+}
+
+.wcu-circle-item {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.wcu-circle-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--primary-200);
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 6px 24px rgba(11, 86, 160, 0.1);
+  transition: all 0.3s ease;
+}
+
+.wcu-outer-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px dashed var(--primary-300);
+  opacity: 0.5;
+}
+
+.wcu-number-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(11, 86, 160, 0.3);
+}
+
+.wcu-number {
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.wcu-icon {
+  font-size: 2.2rem;
+  color: var(--primary);
+  transition: all 0.3s ease;
+}
+
+.wcu-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 8px;
+}
+
+.wcu-desc {
+  color: var(--gray-500);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.wcu-circle-item:hover .wcu-circle-icon {
+  border-color: var(--primary) !important;
+  transform: scale(1.08);
+  box-shadow: 0 8px 32px rgba(11, 86, 160, 0.18) !important;
+}
+
+.wcu-circle-item:hover .wcu-outer-ring {
+  opacity: 1 !important;
+  border-color: var(--primary) !important;
+}
+
+/* Icon hover effects for all sections using wcu-icon */
+.wcu-circle-item:hover .wcu-icon,
+.work-item:hover .wcu-icon {
+  color: var(--white) !important;
+}
+
 .footer.inner-footer .social-icon ul li a {
   display: flex;
   align-items: center;
@@ -14169,7 +14392,7 @@ select:focus {
 }
 
 .footer-two {
-  background: #000103;
+  background: #0b56a0;
 }
 
 .footer-two p {
