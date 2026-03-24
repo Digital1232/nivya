@@ -4182,31 +4182,258 @@ document.addEventListener("DOMContentLoaded", function () {
 	// Testimonial Slider Two
 	$('.testimonial-slider-two').each(function () {
 		const $slider = $(this);
-		if (!$slider.hasClass('slick-initialized')) {
-			$slider.slick({
-				dots: false,
-				infinite: true,
-				speed: 2000,
-				slidesToShow: 3,
-				slidesToScroll: 1,
-				centerMode: true,
-				autoplay: false,
-				arrows: true,
-				prevArrow: '<button type="button" class="slick-prev"><i class="isax isax-arrow-left-1"></i></button>',
-				nextArrow: '<button type="button" class="slick-next"><i class="isax isax-arrow-right-1"></i></button>',
-				variableWidth: true,
-				responsive: [
-					{
-						breakpoint: 992,
-						settings: { slidesToShow: 3, slidesToScroll: 1 }
-					},
-					{
-						breakpoint: 768,
-						settings: { slidesToShow: 1, slidesToScroll: 1, variableWidth: false, centerMode: false }
-					}
-				]
-			});
+		if ($slider.children('.testimonial-item-two').length) {
+			$slider.children('.testimonial-item-two').wrap('<div></div>');
 		}
+		if ($slider.hasClass('slick-initialized')) {
+			$slider.slick('unslick');
+		}
+		$slider.slick({
+			dots: false,
+			infinite: true,
+			speed: 2000,
+			slidesToShow: 3,
+			slidesToScroll: 1,
+			centerMode: true,
+			autoplay: false,
+			arrows: true,
+			pauseOnHover: true,
+			pauseOnFocus: true,
+			prevArrow: '<button type="button" class="slick-prev"><i class="isax isax-arrow-left-1"></i></button>',
+			nextArrow: '<button type="button" class="slick-next"><i class="isax isax-arrow-right-1"></i></button>',
+			variableWidth: true,
+			responsive: [
+				{
+					breakpoint: 992,
+					settings: { slidesToShow: 3, slidesToScroll: 1 }
+				},
+				{
+					breakpoint: 768,
+					settings: { slidesToShow: 1, slidesToScroll: 1, variableWidth: false, centerMode: false }
+				}
+			]
+		});
+	});
+
+	// Initialize drag scroll and autoscroll functionality
+	function initializeTestimonialDragScroll() {
+		const tracks = document.querySelectorAll('[data-drag-scroll]');
+		
+		console.log('🔍 Initializing testimonial drag scroll. Found', tracks.length, 'track(s)');
+		
+		if (tracks.length === 0) {
+			console.log('❌ No drag-scroll elements found');
+			return;
+		}
+
+		tracks.forEach(function (track, trackIndex) {
+			console.log('📍 Setting up track', trackIndex);
+			
+			let isDragging = false;
+			let isMouseOver = false;
+			let startX = 0;
+			let startScrollLeft = 0;
+			let pointerId = null;
+			let hasMoved = false;
+			let autoScrollInterval = null;
+
+			// Verify scrollable content exists
+			const checkScrollable = () => {
+				const isScrollable = track.scrollWidth > track.clientWidth;
+				console.log('  checkScrollable:', isScrollable, '(scrollWidth:', track.scrollWidth, 'clientWidth:', track.clientWidth + ')');
+				return isScrollable;
+			};
+
+			const stopAutoScroll = () => {
+				console.log('  ⏹️ Stopping autoscroll (interval ID was:', autoScrollInterval + ')');
+				if (autoScrollInterval) {
+					clearInterval(autoScrollInterval);
+					autoScrollInterval = null;
+				}
+			};
+
+			const startAutoScroll = () => {
+				console.log('  ▶️ Starting autoscroll check - isDragging:', isDragging, 'isMouseOver:', isMouseOver);
+				
+				// Only start if not dragging and not hovering
+				if (isDragging || isMouseOver) {
+					console.log('  ⚠️ Skipping autoscroll - dragging:', isDragging, 'hovering:', isMouseOver);
+					return;
+				}
+				
+				// Stop any existing interval first
+				stopAutoScroll();
+				
+				// Check if scrollable
+				if (!checkScrollable()) {
+					console.log('  ⚠️ Not scrollable, skipping autoscroll');
+					return;
+				}
+
+				// Start the autoscroll with simpler logic
+				console.log('  ✓ Creating autoscroll interval');
+				autoScrollInterval = setInterval(() => {
+					// Safety check - stop if conditions change
+					if (isDragging || isMouseOver) {
+						return;
+					}
+
+					try {
+						const maxScroll = track.scrollWidth - track.clientWidth;
+						let currentScroll = track.scrollLeft;
+						
+						// Increment scroll position
+						currentScroll += 2;
+						
+						// Check if we reached the end
+						if (currentScroll >= maxScroll) {
+							// Loop back to start
+							currentScroll = 0;
+						}
+						
+						// Set scrollLeft directly (confirmed working in tests)
+						track.scrollLeft = currentScroll;
+					} catch (error) {
+						console.error('Error in autoscroll:', error);
+					}
+				}, 50);
+				
+				console.log('  ✓ Autoscroll interval started, ID:', autoScrollInterval);
+			};
+
+			const stopDragging = () => {
+				if (!isDragging) {
+					return;
+				}
+				console.log('  ✋ Stop dragging');
+				isDragging = false;
+				track.classList.remove('is-dragging');
+				document.body.classList.remove('testimonial-dragging');
+				pointerId = null;
+
+				// Resume autoscroll after a delay (only if not hovering)
+				setTimeout(() => {
+					if (!isDragging && !isMouseOver) {
+						console.log('  ▶️ Resuming autoscroll after drag');
+						startAutoScroll();
+					}
+				}, 1500);
+			};
+
+			const startDrag = (clientX, currentPointerId) => {
+				console.log('  👆 Start drag');
+				stopAutoScroll();
+				isDragging = true;
+				hasMoved = false;
+				startX = clientX;
+				startScrollLeft = track.scrollLeft;
+				pointerId = currentPointerId;
+				track.classList.add('is-dragging');
+				document.body.classList.add('testimonial-dragging');
+			};
+
+			const moveDrag = (clientX) => {
+				if (!isDragging) {
+					return;
+				}
+				
+				hasMoved = true;
+				const walk = (clientX - startX) * 2;
+				// Use scrollLeft directly (confirmed working in tests)
+				track.scrollLeft = startScrollLeft - walk;
+			};
+
+			// Mouse events
+			track.addEventListener('mousedown', (event) => {
+				if (event.button !== 0 || !checkScrollable()) {
+					return;
+				}
+				startDrag(event.clientX, 'mouse');
+			});
+
+			track.addEventListener('mousemove', (event) => {
+				if (!isDragging || pointerId !== 'mouse') {
+					return;
+				}
+				moveDrag(event.clientX);
+			});
+
+			track.addEventListener('mouseup', stopDragging);
+			track.addEventListener('mouseleave', () => {
+				console.log('  🚪 Mouse left track');
+				isMouseOver = false;
+				stopDragging();
+				// Resume autoscroll when leaving
+				setTimeout(() => {
+					if (!isDragging) {
+						console.log('  ▶️ Resuming autoscroll after mouse leave');
+						startAutoScroll();
+					}
+				}, 300);
+			});
+
+			// Mouse enter - pause autoscroll
+			track.addEventListener('mouseenter', () => {
+				console.log('  🖱️ Mouse entered track');
+				isMouseOver = true;
+				stopAutoScroll();
+			});
+
+			// Pointer events (for broader compatibility)
+			track.addEventListener('pointerdown', (event) => {
+				if (event.button !== 0 || !checkScrollable()) {
+					return;
+				}
+				startDrag(event.clientX, event.pointerId);
+				if (track.setPointerCapture) {
+					track.setPointerCapture(event.pointerId);
+				}
+			});
+
+			track.addEventListener('pointermove', (event) => {
+				if (!isDragging || event.pointerId !== pointerId) {
+					return;
+				}
+				moveDrag(event.clientX);
+			});
+
+			track.addEventListener('pointerup', stopDragging);
+			track.addEventListener('pointercancel', stopDragging);
+			track.addEventListener('lostpointercapture', stopDragging);
+
+			// Prevent link/image interactions while dragging
+			track.querySelectorAll('img, a').forEach((node) => {
+				node.addEventListener('dragstart', (event) => {
+					event.preventDefault();
+				});
+				node.addEventListener('click', (event) => {
+					if (hasMoved) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+				});
+			});
+
+			// Initial autoscroll start with delay to ensure DOM is ready
+			console.log('  ⏳ Scheduling autoscroll start in 500ms');
+			setTimeout(() => {
+				console.log('  🚀 500ms passed, starting autoscroll');
+				startAutoScroll();
+			}, 500);
+		});
+	}
+
+	// Initialize after jQuery and DOM are ready
+	console.log('📦 Script loaded, waiting for jQuery ready');
+	jQuery(document).ready(function() {
+		console.log('✓ jQuery ready');
+		setTimeout(initializeTestimonialDragScroll, 100);
+	});
+
+	// Also initialize when window fully loads
+	window.addEventListener('load', () => {
+		console.log('✓ Window load event');
+		setTimeout(initializeTestimonialDragScroll, 500);
 	});
 
 	// Testimonial Slider

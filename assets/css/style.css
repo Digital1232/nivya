@@ -13288,7 +13288,10 @@ header .togglesearch button {
 }
 
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 111;
+  background: var(--white);
 }
 
 @media (max-width: 991.98px) {
@@ -13944,6 +13947,7 @@ select:focus {
 }
 
 .wcu-circle-item:hover .wcu-circle-icon {
+  background: var(--primary-gradient);
   border-color: var(--primary) !important;
   transform: scale(1.08);
   box-shadow: 0 8px 32px rgba(11, 86, 160, 0.18) !important;
@@ -14038,6 +14042,17 @@ select:focus {
   transition: all 0.3s ease;
 }
 
+.wcu-hover-image {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
 .wcu-title {
   font-size: 1rem;
   font-weight: 700;
@@ -14064,9 +14079,16 @@ select:focus {
 }
 
 /* Icon hover effects for all sections using wcu-icon */
-.wcu-circle-item:hover .wcu-icon,
-.work-item:hover .wcu-icon {
-  color: var(--white) !important;
+.wcu-circle-item:hover .wcu-icon {
+  color: transparent !important;
+  opacity: 0;
+  transform: scale(0.7);
+}
+
+.wcu-circle-item:hover .wcu-hover-image {
+  opacity: 1;
+  transform: scale(1);
+  filter: brightness(0) invert(1);
 }
 
 .footer.inner-footer .social-icon ul li a {
@@ -14482,7 +14504,7 @@ select:focus {
 }
 
 .footer-two .footer-top .footer-widget.footer-about .social-icon ul li:last-child a {
-  padding-right: 0;
+  margin-right: 0;
 }
 
 .footer-two .footer-top .footer-widget.footer-about .social-icon ul li:last-child a::before {
@@ -14492,7 +14514,15 @@ select:focus {
 .footer-two .footer-top .footer-widget.footer-about .social-icon ul li a {
   color: #fff;
   position: relative;
-  padding-right: 18px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 18px;
+  transition: all 0.3s ease;
 }
 
 .footer-two .footer-top .footer-widget.footer-about .social-icon ul li a::before {
@@ -14511,8 +14541,44 @@ select:focus {
 
 .footer-two .footer-top .footer-widget.footer-about .social-icon ul li a:hover {
   background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  border-color: transparent;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.slick-track {
+  display: flex !important;
+}
+
+.testimonial-slider-two {
+  position: relative;
+}
+
+.testimonial-slider-two::before,
+.testimonial-slider-two::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  z-index: 2;
+}
+
+.testimonial-slider-two::before {
+  left: 0;
+  background: linear-gradient(to right, #fff, transparent);
+}
+
+.testimonial-slider-two::after {
+  right: 0;
+  background: linear-gradient(to left, #fff, transparent);
+}
+
+.footer-two .footer-top .footer-widget.footer-about .social-icon ul li a img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
 }
 
 .footer-two .footer-top .footer-widget.footer-contact p {
@@ -52145,12 +52211,27 @@ input:checked+.tog-slider:before {
 .speciality-item .speciality-icon {
   width: 60px;
   height: 60px;
-  background: var(--light-transparent);
-  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(11, 86, 160, 0.12) 0%, rgba(197, 24, 202, 0.18) 100%);
+  border: 1px solid rgba(11, 86, 160, 0.14);
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: var(--primary);
+  box-shadow: 0 12px 24px rgba(11, 86, 160, 0.08);
+  transition: all 0.3s ease;
+}
+
+.speciality-item .speciality-icon img {
+  max-width: 34px;
+  max-height: 34px;
+  width: auto;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter: none;
+  transition: transform 0.3s ease;
 }
 
 .speciality-item h6 {
@@ -52159,8 +52240,26 @@ input:checked+.tog-slider:before {
 }
 
 .speciality-item .link-icon {
-  color: var(--gray-transparent);
+  color: rgba(11, 86, 160, 0.35);
   font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.speciality-item:hover .speciality-icon {
+  background: var(--primary-gradient);
+  border-color: transparent;
+  color: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px rgba(11, 86, 160, 0.18);
+}
+
+.speciality-item:hover .speciality-icon img {
+  filter: brightness(0) invert(1);
+  transform: scale(1.05);
+}
+
+.speciality-item:hover .link-icon {
+  color: var(--primary);
 }
 
 .clinic-item .clinic-icon {
@@ -60084,6 +60183,12 @@ ul li {
   background: var(--primary-gradient);
 }
 
+.work-item:hover .work-icon .wcu-icon {
+  color: var(--white) !important;
+  opacity: 1;
+  transform: scale(1.05);
+}
+
 .work-item:hover .work-icon img {
   filter: brightness(0) invert(1);
 }
@@ -67658,6 +67763,127 @@ ul li {
   color: #fff;
 }
 
+.testimonial-drag-shell {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+  overflow: hidden;
+  width: 100%;
+}
+
+.testimonial-drag-shell::before,
+.testimonial-drag-shell::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 72px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.testimonial-drag-shell::before {
+  left: 0;
+  background: linear-gradient(to right, #fff 10%, rgba(255, 255, 255, 0));
+}
+
+.testimonial-drag-shell::after {
+  right: 0;
+  background: linear-gradient(to left, #fff 10%, rgba(255, 255, 255, 0));
+}
+
+.testimonial-drag-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 12px 32px 24px;
+  scroll-snap-type: x proximity;
+  scroll-behavior: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y pinch-zoom;
+  width: 100%;
+  min-width: 100%;
+}
+
+.testimonial-drag-track::-webkit-scrollbar {
+  display: none;
+}
+
+.testimonial-drag-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+.testimonial-drag-track.is-dragging .testimonial-drag-card {
+  pointer-events: none;
+}
+
+.testimonial-drag-card {
+  flex: 0 0 clamp(280px, 31vw, 420px);
+  min-height: 100%;
+  scroll-snap-align: start;
+  box-shadow: 0 18px 40px rgba(16, 24, 40, 0.08);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.testimonial-drag-card .testimonial-content p {
+  -webkit-line-clamp: 5;
+}
+
+.testimonial-drag-track .testimonial-item-two:hover {
+  background: var(--white);
+}
+
+.testimonial-drag-track .testimonial-item-two:hover .testimonial-author-img {
+  opacity: 0;
+  top: -100px;
+  right: -100px;
+}
+
+.testimonial-drag-track .testimonial-item-two:hover .quote-icon img {
+  filter: none;
+}
+
+.testimonial-drag-track .testimonial-item-two:hover .custom-title,
+.testimonial-drag-track .testimonial-item-two:hover p {
+  color: inherit;
+}
+
+body.testimonial-dragging {
+  cursor: grabbing;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+@media (max-width: 991.98px) {
+  .testimonial-drag-shell::before,
+  .testimonial-drag-shell::after {
+    width: 32px;
+  }
+
+  .testimonial-drag-track {
+    gap: 18px;
+    padding-inline: 16px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .testimonial-drag-shell::before,
+  .testimonial-drag-shell::after {
+    display: none;
+  }
+
+  .testimonial-drag-card {
+    flex-basis: min(86vw, 340px);
+  }
+}
+
 .testimonial-item-three {
   padding: 40px;
   border-radius: 12px;
@@ -71945,6 +72171,58 @@ ul li {
 
 .app-section-thirteen .app-thirteen .section-title {
   margin-bottom: 20px;
+}
+
+.app-section-thirteen .insurance-points {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: nowrap;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-section-thirteen .insurance-points li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  color: var(--gray-700);
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.app-section-thirteen .insurance-points li i {
+  color: var(--primary);
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+@media (max-width: 991.98px) {
+  .app-section-thirteen .insurance-points {
+    gap: 18px;
+  }
+
+  .app-section-thirteen .insurance-points li {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .app-section-thirteen .insurance-points {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .app-section-thirteen .insurance-points li {
+    width: 100%;
+    white-space: normal;
+    justify-content: flex-start;
+  }
 }
 
 .app-section-thirteen .app-thirteen .app-img-thirteen {
