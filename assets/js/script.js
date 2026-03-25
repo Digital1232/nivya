@@ -2244,6 +2244,12 @@ Version      : 1.3
 
 	// Cursor
 
+	function ensureCursorMarkup() {
+		if (!$('.mouse-cursor').length) {
+			$('body').append('<div class="mouse-cursor cursor-outer"></div><div class="mouse-cursor cursor-inner"></div>');
+		}
+	}
+
 	function mim_tm_cursor() {
 		var myCursor = jQuery('.mouse-cursor');
 		if (myCursor.length) {
@@ -2262,7 +2268,9 @@ Version      : 1.3
 			}
 		}
 	};
-	mim_tm_cursor()
+
+	ensureCursorMarkup();
+	mim_tm_cursor();
 
 	// Slick Slider
 	if ($('.onboard-slider').length > 0) {
