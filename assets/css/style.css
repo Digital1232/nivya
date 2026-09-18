@@ -53203,6 +53203,10 @@ ul li {
   }
 }
 
+.doctor-section-two .row > [class*="col-"] {
+  display: flex;
+}
+
 .doctor-item-two {
   background: var(--white);
   border: 1px solid var(--gray-200);
@@ -53211,17 +53215,33 @@ ul li {
   -webkit-transition: all 0.5s;
   -ms-transition: all 0.5s;
   transition: all 0.5s;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
 .doctor-item-two .doctor-image {
   margin-bottom: 20px;
   overflow: hidden;
   border-radius: 12px;
+  height: 280px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.doctor-item-two .doctor-image a {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .doctor-item-two .doctor-image img {
   border-radius: 12px;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
   -webkit-transition: all 2000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
   -ms-transition: all 2000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
   transition: all 2000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
@@ -53230,32 +53250,55 @@ ul li {
   -ms-transform: translateZ(0);
 }
 
+.doctor-item-two .doctor-image img[src*="dr-nivya"],
+.card-img img[src*="dr-nivya"] {
+  object-position: 75% 52% !important;
+}
+
+.doctor-item-two .doctor-image img[src*="dr-manimozhian"] {
+  object-position: 25% 15%;
+}
+
+.doctor-item-two .doctor-image img[src*="dr-mathan"] {
+  object-position: 30% 15%;
+}
+
 .doctor-item-two .doctor-content {
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .doctor-item-two .doctor-content .custom-title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
-.doctor-item-two .doctor-content p {
+.doctor-item-two .doctor-content .speciality {
+  margin-bottom: 12px;
+  min-height: 48px;
   display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+  align-items: flex-start;
+  color: var(--primary);
+  font-weight: 500;
 }
 
 .doctor-item-two .doctor-content .available-info {
   margin-bottom: 20px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  flex-grow: 1;
 }
 
 .doctor-item-two .doctor-content .available-info p {
   margin-bottom: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--gray-600);
 }
 
 .doctor-item-two .doctor-content .available-info p i {
@@ -53273,6 +53316,7 @@ ul li {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: auto;
 }
 
 .doctor-item-two .btn:hover {
@@ -53282,9 +53326,9 @@ ul li {
 }
 
 .doctor-item-two:hover .doctor-image img {
-  transform: scale(1.15);
-  -webkit-transform: scale(1.15);
-  -ms-transform: scale(1.15);
+  transform: scale(1.08);
+  -webkit-transform: scale(1.08);
+  -ms-transform: scale(1.08);
 }
 
 .doctor-item-four {
@@ -53643,9 +53687,9 @@ ul li {
 }
 
 .appointment-section {
-  background: url("../img/about/appointment.jpg") no-repeat;
+  background: url("../img/about/priority-bg.jpg") no-repeat;
   background-size: cover;
-  background-position: top center;
+  background-position: center center;
   background-attachment: fixed;
   position: relative;
   padding: 100px 0;
@@ -72592,6 +72636,38 @@ body.testimonial-dragging {
   right: 0;
   top: 0;
   z-index: -1;
+}
+
+.medical-team-card {
+  background: #f0f6ff;
+  padding: 50px 60px;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.medical-team-photo {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.medical-team-photo img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(14, 130, 253, 0.15);
+  display: inline-block;
+}
+
+@media (max-width: 991.98px) {
+  .medical-team-card {
+    padding: 30px 24px !important;
+  }
+  .medical-team-photo {
+    margin-top: 24px;
+  }
 }
 
 .shipping-section-thirteen {
