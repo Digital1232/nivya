@@ -65,7 +65,74 @@
 	<link rel="stylesheet" href="assets/plugins/fancybox/jquery.fancybox.min.css">
 
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/style.css?v=2.2">
+	<style>
+		.doctor-section-two .row > [class*="col-"] {
+			display: flex !important;
+		}
+		.doctor-item-two {
+			display: flex !important;
+			flex-direction: column !important;
+			width: 100% !important;
+			height: 100% !important;
+		}
+		.doctor-item-two .doctor-image {
+			height: 280px !important;
+			width: 100% !important;
+			overflow: hidden !important;
+			border-radius: 12px !important;
+			flex-shrink: 0 !important;
+			margin-bottom: 20px !important;
+		}
+		.doctor-item-two .doctor-image a {
+			display: block !important;
+			width: 100% !important;
+			height: 100% !important;
+		}
+		.doctor-item-two .doctor-image img {
+			width: 100% !important;
+			height: 100% !important;
+			object-fit: cover !important;
+			border-radius: 12px !important;
+		}
+		.doctor-item-two .doctor-image img[src*="dr-nivya"] {
+			object-position: 75% 52% !important;
+		}
+		.doctor-item-two .doctor-image img[src*="dr-manimozhian"] {
+			object-position: 25% 15% !important;
+		}
+		.doctor-item-two .doctor-image img[src*="dr-mathan"] {
+			object-position: 30% 15% !important;
+		}
+		.doctor-item-two .doctor-content {
+			display: flex !important;
+			flex-direction: column !important;
+			flex-grow: 1 !important;
+		}
+		.doctor-item-two .doctor-content .speciality {
+			min-height: 48px !important;
+			display: flex !important;
+			align-items: flex-start !important;
+			color: #1b5a90 !important;
+			font-weight: 500 !important;
+			margin-bottom: 12px !important;
+		}
+		.doctor-item-two .doctor-content .available-info {
+			flex-grow: 1 !important;
+			display: flex !important;
+			align-items: flex-start !important;
+			margin-bottom: 20px !important;
+		}
+		.doctor-item-two .doctor-content .available-info p {
+			font-size: 14px !important;
+			line-height: 1.5 !important;
+			color: #6B7280 !important;
+			margin-bottom: 0 !important;
+		}
+		.doctor-item-two .btn {
+			margin-top: auto !important;
+		}
+	</style>
 
 </head>
 
